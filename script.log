@@ -1,0 +1,1866 @@
+Script started on 2022-02-09 21:38:55+03:00
+]0;tesla@ol85:~/homework03[tesla@ol85 homework03]$ vagrant ssh
+Last login: Wed Feb  9 18:28:51 2022 from 10.0.2.2
+]0;vagrant@lvm03:~[?1034h[vagrant@lvm03 ~]$ lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda      8:0    0  40G  0 disk 
+└─sda1   8:1    0  40G  0 part /
+sdb      8:16   0  10G  0 disk 
+sdc      8:32   0   2G  0 disk 
+sdd      8:48   0   1G  0 disk 
+sde      8:64   0   1G  0 disk 
+]0;vagrant@lvm03:~[vagrant@lvm03 ~]$ lvmdiskscan
+-bash: lvmdiskscan: command not found
+]0;vagrant@lvm03:~[vagrant@lvm03 ~]$ yum install lvm*
+Loaded plugins: fastestmirror
+You need to be root to perform this command.
+]0;vagrant@lvm03:~[vagrant@lvm03 ~]$ su[K[Ksudo su
+]0;root@lvm03:/home/vagrant[?1034h[root@lvm03 vagrant]# yum install lvm*
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.sale-dedic.com
+Resolving Dependencies
+--> Running transaction check
+---> Package lvm2.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper-persistent-data >= 0.7.0-0.1.rc6 for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02(Base)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.4)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.1)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02()(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1()(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+---> Package lvm2-cluster.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper = 7:1.02.170 for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: resource-agents >= 3.9.5-25 for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: dlm >= 4.0.6-2 for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: corosync >= 1.99.9-1 for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libquorum.so.5(COROSYNC_QUORUM_1.0)(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libcpg.so.4(COROSYNC_CPG_1.0)(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libcmap.so.4(COROSYNC_CMAP_1.0)(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libquorum.so.5()(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libdlm.so.3()(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libcpg.so.4()(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libcmap.so.4()(64bit) for package: 7:lvm2-cluster-2.02.187-6.el7_9.5.x86_64
+---> Package lvm2-devel.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper-event-devel = 7:1.02.170-6.el7_9.5 for package: 7:lvm2-devel-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: device-mapper-devel = 7:1.02.170-6.el7_9.5 for package: 7:lvm2-devel-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: pkgconfig(devmapper) for package: 7:lvm2-devel-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: pkgconfig(blkid) for package: 7:lvm2-devel-2.02.187-6.el7_9.5.x86_64
+---> Package lvm2-libs.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper-event = 7:1.02.170-6.el7_9.5 for package: 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64
+---> Package lvm2-lockd.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: sanlock-lib >= 3.3.0-1 for package: 7:lvm2-lockd-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libsanlock_client.so.1()(64bit) for package: 7:lvm2-lockd-2.02.187-6.el7_9.5.x86_64
+---> Package lvm2-python-boom.noarch 7:1.2-2.el7_9.5 will be installed
+---> Package lvm2-python-libs.x86_64 7:2.02.187-6.el7_9.5 will be installed
+---> Package lvm2-sysvinit.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Running transaction check
+---> Package corosync.x86_64 0:2.4.5-7.el7_9.2 will be installed
+--> Processing Dependency: libcgroup.so.1(CGROUP_0.32.1)(64bit) for package: corosync-2.4.5-7.el7_9.2.x86_64
+--> Processing Dependency: libcgroup.so.1(CGROUP_0.32)(64bit) for package: corosync-2.4.5-7.el7_9.2.x86_64
+--> Processing Dependency: libqb.so.0()(64bit) for package: corosync-2.4.5-7.el7_9.2.x86_64
+--> Processing Dependency: libnetsnmp.so.31()(64bit) for package: corosync-2.4.5-7.el7_9.2.x86_64
+--> Processing Dependency: libcgroup.so.1()(64bit) for package: corosync-2.4.5-7.el7_9.2.x86_64
+---> Package corosynclib.x86_64 0:2.4.5-7.el7_9.2 will be installed
+---> Package device-mapper.x86_64 7:1.02.164-7.el7_8.1 will be updated
+--> Processing Dependency: device-mapper = 7:1.02.164-7.el7_8.1 for package: 7:device-mapper-libs-1.02.164-7.el7_8.1.x86_64
+---> Package device-mapper.x86_64 7:1.02.170-6.el7_9.5 will be an update
+---> Package device-mapper-devel.x86_64 7:1.02.170-6.el7_9.5 will be installed
+--> Processing Dependency: pkgconfig(libudev) for package: 7:device-mapper-devel-1.02.170-6.el7_9.5.x86_64
+--> Processing Dependency: pkgconfig(libselinux) for package: 7:device-mapper-devel-1.02.170-6.el7_9.5.x86_64
+---> Package device-mapper-event.x86_64 7:1.02.170-6.el7_9.5 will be installed
+---> Package device-mapper-event-devel.x86_64 7:1.02.170-6.el7_9.5 will be installed
+---> Package device-mapper-event-libs.x86_64 7:1.02.170-6.el7_9.5 will be installed
+---> Package device-mapper-persistent-data.x86_64 0:0.8.5-3.el7_9.2 will be installed
+---> Package dlm.x86_64 0:4.0.7-1.el7 will be installed
+---> Package dlm-lib.x86_64 0:4.0.7-1.el7 will be installed
+---> Package libaio.x86_64 0:0.3.109-13.el7 will be installed
+---> Package libblkid-devel.x86_64 0:2.23.2-65.el7_9.1 will be installed
+--> Processing Dependency: libblkid = 2.23.2-65.el7_9.1 for package: libblkid-devel-2.23.2-65.el7_9.1.x86_64
+--> Processing Dependency: pkgconfig(uuid) for package: libblkid-devel-2.23.2-65.el7_9.1.x86_64
+---> Package resource-agents.x86_64 0:4.1.1-61.el7_9.13 will be installed
+--> Processing Dependency: psmisc for package: resource-agents-4.1.1-61.el7_9.13.x86_64
+--> Processing Dependency: bc for package: resource-agents-4.1.1-61.el7_9.13.x86_64
+--> Processing Dependency: /usr/sbin/fuser for package: resource-agents-4.1.1-61.el7_9.13.x86_64
+--> Processing Dependency: /bin/netstat for package: resource-agents-4.1.1-61.el7_9.13.x86_64
+---> Package sanlock-lib.x86_64 0:3.7.3-1.el7 will be installed
+--> Running transaction check
+---> Package bc.x86_64 0:1.06.95-13.el7 will be installed
+---> Package device-mapper-libs.x86_64 7:1.02.164-7.el7_8.1 will be updated
+---> Package device-mapper-libs.x86_64 7:1.02.170-6.el7_9.5 will be an update
+---> Package libblkid.x86_64 0:2.23.2-63.el7 will be updated
+--> Processing Dependency: libblkid = 2.23.2-63.el7 for package: util-linux-2.23.2-63.el7.x86_64
+--> Processing Dependency: libblkid = 2.23.2-63.el7 for package: libmount-2.23.2-63.el7.x86_64
+---> Package libblkid.x86_64 0:2.23.2-65.el7_9.1 will be an update
+--> Processing Dependency: libuuid = 2.23.2-65.el7_9.1 for package: libblkid-2.23.2-65.el7_9.1.x86_64
+---> Package libcgroup.x86_64 0:0.41-21.el7 will be installed
+---> Package libqb.x86_64 0:1.0.1-9.el7 will be installed
+---> Package libselinux-devel.x86_64 0:2.5-15.el7 will be installed
+--> Processing Dependency: libsepol-devel(x86-64) >= 2.5-10 for package: libselinux-devel-2.5-15.el7.x86_64
+--> Processing Dependency: pkgconfig(libsepol) for package: libselinux-devel-2.5-15.el7.x86_64
+--> Processing Dependency: pkgconfig(libpcre) for package: libselinux-devel-2.5-15.el7.x86_64
+---> Package libuuid-devel.x86_64 0:2.23.2-65.el7_9.1 will be installed
+---> Package net-snmp-libs.x86_64 1:5.7.2-49.el7_9.1 will be installed
+---> Package net-tools.x86_64 0:2.0-0.25.20131004git.el7 will be installed
+---> Package psmisc.x86_64 0:22.20-17.el7 will be installed
+---> Package systemd-devel.x86_64 0:219-78.el7_9.5 will be installed
+--> Processing Dependency: systemd-libs = 219-78.el7_9.5 for package: systemd-devel-219-78.el7_9.5.x86_64
+--> Processing Dependency: systemd = 219-78.el7_9.5 for package: systemd-devel-219-78.el7_9.5.x86_64
+--> Running transaction check
+---> Package libmount.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libmount.x86_64 0:2.23.2-65.el7_9.1 will be an update
+---> Package libsepol-devel.x86_64 0:2.5-10.el7 will be installed
+---> Package libuuid.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libuuid.x86_64 0:2.23.2-65.el7_9.1 will be an update
+---> Package pcre-devel.x86_64 0:8.32-17.el7 will be installed
+---> Package systemd.x86_64 0:219-73.el7_8.5 will be updated
+--> Processing Dependency: systemd = 219-73.el7_8.5 for package: systemd-sysv-219-73.el7_8.5.x86_64
+---> Package systemd.x86_64 0:219-78.el7_9.5 will be an update
+---> Package systemd-libs.x86_64 0:219-73.el7_8.5 will be updated
+---> Package systemd-libs.x86_64 0:219-78.el7_9.5 will be an update
+---> Package util-linux.x86_64 0:2.23.2-63.el7 will be updated
+---> Package util-linux.x86_64 0:2.23.2-65.el7_9.1 will be an update
+--> Processing Dependency: libsmartcols = 2.23.2-65.el7_9.1 for package: util-linux-2.23.2-65.el7_9.1.x86_64
+--> Running transaction check
+---> Package libsmartcols.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libsmartcols.x86_64 0:2.23.2-65.el7_9.1 will be an update
+---> Package systemd-sysv.x86_64 0:219-73.el7_8.5 will be updated
+---> Package systemd-sysv.x86_64 0:219-78.el7_9.5 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================================================================================
+ Package                                                    Arch                                Version                                                 Repository                            Size
+===================================================================================================================================================================================================
+Installing:
+ lvm2                                                       x86_64                              7:2.02.187-6.el7_9.5                                    updates                              1.3 M
+ lvm2-cluster                                               x86_64                              7:2.02.187-6.el7_9.5                                    updates                              753 k
+ lvm2-devel                                                 x86_64                              7:2.02.187-6.el7_9.5                                    updates                              183 k
+ lvm2-libs                                                  x86_64                              7:2.02.187-6.el7_9.5                                    updates                              1.1 M
+ lvm2-lockd                                                 x86_64                              7:2.02.187-6.el7_9.5                                    updates                              249 k
+ lvm2-python-boom                                           noarch                              7:1.2-2.el7_9.5                                         updates                              469 k
+ lvm2-python-libs                                           x86_64                              7:2.02.187-6.el7_9.5                                    updates                              189 k
+ lvm2-sysvinit                                              x86_64                              7:2.02.187-6.el7_9.5                                    updates                              177 k
+Installing for dependencies:
+ bc                                                         x86_64                              1.06.95-13.el7                                          base                                 115 k
+ corosync                                                   x86_64                              2.4.5-7.el7_9.2                                         updates                              222 k
+ corosynclib                                                x86_64                              2.4.5-7.el7_9.2                                         updates                              137 k
+ device-mapper-devel                                        x86_64                              7:1.02.170-6.el7_9.5                                    updates                              206 k
+ device-mapper-event                                        x86_64                              7:1.02.170-6.el7_9.5                                    updates                              192 k
+ device-mapper-event-devel                                  x86_64                              7:1.02.170-6.el7_9.5                                    updates                              174 k
+ device-mapper-event-libs                                   x86_64                              7:1.02.170-6.el7_9.5                                    updates                              192 k
+ device-mapper-persistent-data                              x86_64                              0.8.5-3.el7_9.2                                         updates                              423 k
+ dlm                                                        x86_64                              4.0.7-1.el7                                             base                                  89 k
+ dlm-lib                                                    x86_64                              4.0.7-1.el7                                             base                                  24 k
+ libaio                                                     x86_64                              0.3.109-13.el7                                          base                                  24 k
+ libblkid-devel                                             x86_64                              2.23.2-65.el7_9.1                                       updates                               81 k
+ libcgroup                                                  x86_64                              0.41-21.el7                                             base                                  66 k
+ libqb                                                      x86_64                              1.0.1-9.el7                                             base                                  96 k
+ libselinux-devel                                           x86_64                              2.5-15.el7                                              base                                 187 k
+ libsepol-devel                                             x86_64                              2.5-10.el7                                              base                                  77 k
+ libuuid-devel                                              x86_64                              2.23.2-65.el7_9.1                                       updates                               93 k
+ net-snmp-libs                                              x86_64                              1:5.7.2-49.el7_9.1                                      updates                              751 k
+ net-tools                                                  x86_64                              2.0-0.25.20131004git.el7                                base                                 306 k
+ pcre-devel                                                 x86_64                              8.32-17.el7                                             base                                 480 k
+ psmisc                                                     x86_64                              22.20-17.el7                                            base                                 141 k
+ resource-agents                                            x86_64                              4.1.1-61.el7_9.13                                       updates                              480 k
+ sanlock-lib                                                x86_64                              3.7.3-1.el7                                             base                                  63 k
+ systemd-devel                                              x86_64                              219-78.el7_9.5                                          updates                              216 k
+Updating for dependencies:
+ device-mapper                                              x86_64                              7:1.02.170-6.el7_9.5                                    updates                              297 k
+ device-mapper-libs                                         x86_64                              7:1.02.170-6.el7_9.5                                    updates                              325 k
+ libblkid                                                   x86_64                              2.23.2-65.el7_9.1                                       updates                              183 k
+ libmount                                                   x86_64                              2.23.2-65.el7_9.1                                       updates                              185 k
+ libsmartcols                                               x86_64                              2.23.2-65.el7_9.1                                       updates                              143 k
+ libuuid                                                    x86_64                              2.23.2-65.el7_9.1                                       updates                               84 k
+ systemd                                                    x86_64                              219-78.el7_9.5                                          updates                              5.1 M
+ systemd-libs                                               x86_64                              219-78.el7_9.5                                          updates                              419 k
+ systemd-sysv                                               x86_64                              219-78.el7_9.5                                          updates                               97 k
+ util-linux                                                 x86_64                              2.23.2-65.el7_9.1                                       updates                              2.0 M
+
+Transaction Summary
+===================================================================================================================================================================================================
+Install  8 Packages (+24 Dependent packages)
+Upgrade             ( 10 Dependent packages)
+
+Total download size: 18 M
+Is this ok [y/d/N]: n
+Exiting on user command
+Your transaction was saved, rerun it with:
+ yum load-transaction /tmp/yum_save_tx.2022-02-09.18-40.Sp8PX8.yumtx
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# yum install lvm*[K2
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.sale-dedic.com
+Resolving Dependencies
+--> Running transaction check
+---> Package lvm2.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: lvm2-libs = 7:2.02.187-6.el7_9.5 for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: device-mapper-persistent-data >= 0.7.0-0.1.rc6 for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: liblvm2app.so.2.2(Base)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02(Base)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.4)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1(LIBAIO_0.1)(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: liblvm2app.so.2.2()(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libdevmapper-event.so.1.02()(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Processing Dependency: libaio.so.1()(64bit) for package: 7:lvm2-2.02.187-6.el7_9.5.x86_64
+--> Running transaction check
+---> Package device-mapper-event-libs.x86_64 7:1.02.170-6.el7_9.5 will be installed
+---> Package device-mapper-persistent-data.x86_64 0:0.8.5-3.el7_9.2 will be installed
+---> Package libaio.x86_64 0:0.3.109-13.el7 will be installed
+---> Package lvm2-libs.x86_64 7:2.02.187-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper-event = 7:1.02.170-6.el7_9.5 for package: 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64
+--> Running transaction check
+---> Package device-mapper-event.x86_64 7:1.02.170-6.el7_9.5 will be installed
+--> Processing Dependency: device-mapper = 7:1.02.170-6.el7_9.5 for package: 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64
+--> Running transaction check
+---> Package device-mapper.x86_64 7:1.02.164-7.el7_8.1 will be updated
+--> Processing Dependency: device-mapper = 7:1.02.164-7.el7_8.1 for package: 7:device-mapper-libs-1.02.164-7.el7_8.1.x86_64
+---> Package device-mapper.x86_64 7:1.02.170-6.el7_9.5 will be an update
+--> Running transaction check
+---> Package device-mapper-libs.x86_64 7:1.02.164-7.el7_8.1 will be updated
+---> Package device-mapper-libs.x86_64 7:1.02.170-6.el7_9.5 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================================================================================
+ Package                                                     Arch                                 Version                                              Repository                             Size
+===================================================================================================================================================================================================
+Installing:
+ lvm2                                                        x86_64                               7:2.02.187-6.el7_9.5                                 updates                               1.3 M
+Installing for dependencies:
+ device-mapper-event                                         x86_64                               7:1.02.170-6.el7_9.5                                 updates                               192 k
+ device-mapper-event-libs                                    x86_64                               7:1.02.170-6.el7_9.5                                 updates                               192 k
+ device-mapper-persistent-data                               x86_64                               0.8.5-3.el7_9.2                                      updates                               423 k
+ libaio                                                      x86_64                               0.3.109-13.el7                                       base                                   24 k
+ lvm2-libs                                                   x86_64                               7:2.02.187-6.el7_9.5                                 updates                               1.1 M
+Updating for dependencies:
+ device-mapper                                               x86_64                               7:1.02.170-6.el7_9.5                                 updates                               297 k
+ device-mapper-libs                                          x86_64                               7:1.02.170-6.el7_9.5                                 updates                               325 k
+
+Transaction Summary
+===================================================================================================================================================================================================
+Install  1 Package  (+5 Dependent packages)
+Upgrade             ( 2 Dependent packages)
+
+Total download size: 3.8 M
+Is this ok [y/d/N]: y
+Downloading packages:
+No Presto metadata available for updates
+(1/8): device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64.rpm                                                                                                               | 192 kB  00:00:00     
+(2/8): device-mapper-event-1.02.170-6.el7_9.5.x86_64.rpm                                                                                                                    | 192 kB  00:00:00     
+(3/8): device-mapper-1.02.170-6.el7_9.5.x86_64.rpm                                                                                                                          | 297 kB  00:00:00     
+(4/8): libaio-0.3.109-13.el7.x86_64.rpm                                                                                                                                     |  24 kB  00:00:00     
+(5/8): device-mapper-libs-1.02.170-6.el7_9.5.x86_64.rpm                                                                                                                     | 325 kB  00:00:00     
+(6/8): device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64.rpm                                                                                                             | 423 kB  00:00:00     
+(8/8): lvm2-libs-2.02.187-6.el7_9.5.x86_64.rpm                                     59% [===========================================                              ]  0.0 B/s | 2.3 MB  --:--:-- ETA (7/8): lvm2-2.02.187-6.el7_9.5.x86_64.rpm                                                                                                                                   | 1.3 MB  00:00:00     
+(8/8): lvm2-libs-2.02.187-6.el7_9.5.x86_64.rpm                                                                                                                              | 1.1 MB  00:00:00     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                              4.3 MB/s | 3.8 MB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libaio-0.3.109-13.el7.x86_64 [                                                                                                                                              ]  1/10  Installing : libaio-0.3.109-13.el7.x86_64 [######################                                                                                                                        ]  1/10  Installing : libaio-0.3.109-13.el7.x86_64 [#############################################                                                                                                 ]  1/10  Installing : libaio-0.3.109-13.el7.x86_64 [############################################################################################################################################  ]  1/10  Installing : libaio-0.3.109-13.el7.x86_64                                                                                                                                                   1/10 
+  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [                                                                                                                            ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [###################                                                                                                         ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [#######################################                                                                                     ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [###########################################################                                                                 ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [###############################################################################                                             ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [###################################################################################################                         ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [#############################################################################################################               ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [###################################################################################################################         ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64 [##########################################################################################################################  ]  2/10  Updating   : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64                                                                                                                                 2/10 
+  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [                                                                                                                                 ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [##                                                                                                                               ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [###                                                                                                                              ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#########                                                                                                                        ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [################                                                                                                                 ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#########################################                                                                                        ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#################################################################                                                                ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#########################################################################                                                        ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [##########################################################################                                                       ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [##################################################################################                                               ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [###########################################################################################                                      ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [############################################################################################                                     ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#####################################################################################################################            ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [######################################################################################################################           ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#######################################################################################################################          ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [#########################################################################################################################        ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [###########################################################################################################################      ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64 [###############################################################################################################################  ]  3/10  Updating   : 7:device-mapper-1.02.170-6.el7_9.5.x86_64                                                                                                                                      3/10 
+  Installing : 7:device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64 [                                                                                                                      ]  4/10  Installing : 7:device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64 [#######################################################                                                               ]  4/10  Installing : 7:device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64 [####################################################################################################################  ]  4/10  Installing : 7:device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64                                                                                                                           4/10 
+  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64 [                                                                                                                           ]  5/10  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64 [#                                                                                                                          ]  5/10  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64 [##                                                                                                                         ]  5/10  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64 [####################################################################################################################       ]  5/10  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64 [#########################################################################################################################  ]  5/10  Installing : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64                                                                                                                                5/10 
+  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [                                                                                                                                     ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#                                                                                                                                    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##                                                                                                                                   ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###                                                                                                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######                                                                                                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########                                                                                                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###########                                                                                                                          ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############                                                                                                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############                                                                                                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##################                                                                                                                   ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################                                                                                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################                                                                                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################                                                                                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################                                                                                                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################                                                                                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################                                                                                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##################################                                                                                                   ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################                                                                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################                                                                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################################                                                                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################                                                                                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################                                                                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################                                                                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##################################################                                                                                   ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################                                                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################################                                                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################################################                                                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################################                                                                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################################                                                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################################                                                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#################################################################                                                                    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################################                                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################################################                                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################################################################                                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################################################                                                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################################################                                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################################################                                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#################################################################################                                                    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################################################                                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################################################################                                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################################################################################                                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################################################################                                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################################################################                                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################################################################                                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#################################################################################################                                    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################################################################                                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################################################################################                               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#########################################################################################################                            ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################################################################################                           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################################################################################                        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################################################################################                      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#################################################################################################################                    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################################################################################                  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [######################################################################################################################               ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#######################################################################################################################              ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [##########################################################################################################################           ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#############################################################################################################################        ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###############################################################################################################################      ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [#################################################################################################################################    ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64 [###################################################################################################################################  ]  6/10  Installing : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64                                                                                                                                          6/10 
+  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [                                                                                                                      ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [####                                                                                                                  ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##########                                                                                                            ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [################                                                                                                      ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [######################                                                                                                ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [############################                                                                                          ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##################################                                                                                    ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [########################################                                                                              ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [############################################                                                                          ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##################################################                                                                    ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [########################################################                                                              ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##############################################################                                                        ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [####################################################################                                                  ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##########################################################################                                            ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [################################################################################                                      ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [####################################################################################                                  ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [##########################################################################################                            ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [################################################################################################                      ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [######################################################################################################                ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [############################################################################################################          ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [################################################################################################################      ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [###################################################################################################################   ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64 [####################################################################################################################  ]  7/10  Installing : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64                                                                                                                           7/10 
+  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [                                                                                                                                          ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##                                                                                                                                        ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [####                                                                                                                                      ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####                                                                                                                                     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#########                                                                                                                                 ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [############                                                                                                                              ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###############                                                                                                                           ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#################                                                                                                                         ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [####################                                                                                                                      ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#######################                                                                                                                   ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##########################                                                                                                                ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [############################                                                                                                              ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###############################                                                                                                           ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##################################                                                                                                        ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####################################                                                                                                     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [########################################                                                                                                  ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##########################################                                                                                                ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#############################################                                                                                             ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [################################################                                                                                          ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [####################################################                                                                                      ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#######################################################                                                                                   ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#########################################################                                                                                 ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [############################################################                                                                              ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###############################################################                                                                           ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##################################################################                                                                        ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####################################################################                                                                     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#######################################################################                                                                   ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##########################################################################                                                                ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#############################################################################                                                             ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [################################################################################                                                          ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##################################################################################                                                        ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####################################################################################                                                     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [########################################################################################                                                  ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###########################################################################################                                               ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###############################################################################################                                           ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#################################################################################################                                         ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [####################################################################################################                                      ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#######################################################################################################                                   ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [########################################################################################################                                  ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###########################################################################################################                               ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#############################################################################################################                             ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###############################################################################################################                           ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##################################################################################################################                        ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####################################################################################################################                     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [########################################################################################################################                  ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##########################################################################################################################                ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [############################################################################################################################              ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#############################################################################################################################             ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [##############################################################################################################################            ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [################################################################################################################################          ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#################################################################################################################################         ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [###################################################################################################################################       ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [####################################################################################################################################      ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#####################################################################################################################################     ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [#######################################################################################################################################   ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64 [########################################################################################################################################  ]  8/10  Installing : 7:lvm2-2.02.187-6.el7_9.5.x86_64                                                                                                                                               8/10 
+  Cleanup    : 7:device-mapper-libs-1.02.164-7.el7_8.1.x86_64                                                                                                                                 9/10 
+  Cleanup    : 7:device-mapper-1.02.164-7.el7_8.1.x86_64                                                                                                                                     10/10 
+  Verifying  : 7:device-mapper-event-1.02.170-6.el7_9.5.x86_64                                                                                                                                1/10 
+  Verifying  : 7:lvm2-libs-2.02.187-6.el7_9.5.x86_64                                                                                                                                          2/10 
+  Verifying  : device-mapper-persistent-data-0.8.5-3.el7_9.2.x86_64                                                                                                                           3/10 
+  Verifying  : 7:device-mapper-1.02.170-6.el7_9.5.x86_64                                                                                                                                      4/10 
+  Verifying  : libaio-0.3.109-13.el7.x86_64                                                                                                                                                   5/10 
+  Verifying  : 7:lvm2-2.02.187-6.el7_9.5.x86_64                                                                                                                                               6/10 
+  Verifying  : 7:device-mapper-libs-1.02.170-6.el7_9.5.x86_64                                                                                                                                 7/10 
+  Verifying  : 7:device-mapper-event-libs-1.02.170-6.el7_9.5.x86_64                                                                                                                           8/10 
+  Verifying  : 7:device-mapper-libs-1.02.164-7.el7_8.1.x86_64                                                                                                                                 9/10 
+  Verifying  : 7:device-mapper-1.02.164-7.el7_8.1.x86_64                                                                                                                                     10/10 
+
+Installed:
+  lvm2.x86_64 7:2.02.187-6.el7_9.5                                                                                                                                                                 
+
+Dependency Installed:
+  device-mapper-event.x86_64 7:1.02.170-6.el7_9.5  device-mapper-event-libs.x86_64 7:1.02.170-6.el7_9.5  device-mapper-persistent-data.x86_64 0:0.8.5-3.el7_9.2  libaio.x86_64 0:0.3.109-13.el7 
+  lvm2-libs.x86_64 7:2.02.187-6.el7_9.5           
+
+Dependency Updated:
+  device-mapper.x86_64 7:1.02.170-6.el7_9.5                                                     device-mapper-libs.x86_64 7:1.02.170-6.el7_9.5                                                    
+
+Complete!
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvmdusk[K[K[Ku[Kiskscan
+  /dev/sda1 [     <40.00 GiB] 
+  /dev/sdb  [      10.00 GiB] 
+  /dev/sdc  [       2.00 GiB] 
+  /dev/sdd  [       1.00 GiB] 
+  /dev/sde  [       1.00 GiB] 
+  4 disks
+  1 partition
+  0 LVM physical volume whole disks
+  0 LVM physical volumes
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvcreate /dev/sdb
+  Physical volume "/dev/sdb" successfully created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgcreate otus /dev/sdb
+  Volume group "otus" successfully created
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgs
+  VG   #PV #LV #SN Attr   VSize   VFree  
+  otus   1   0   0 wz--n- <10.00g <10.00g
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pv
+bash: pv: command not found
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvs
+  PV         VG   Fmt  Attr PSize   PFree  
+  /dev/sdb   otus lvm2 a--  <10.00g <10.00g
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -+80%FREE -n test otus
+lvcreate: invalid option -- '+'
+  Error during parsing of command line.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -+80%FREE -n test otus[1@l
+  Logical volume "test" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvs
+  LV   VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  test otus -wi-a----- <8.00g                                                    
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgdisl[Kplay
+  --- Volume group ---
+  VG Name               otus
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               0
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <10.00 GiB
+  PE Size               4.00 MiB
+  Total PE              2559
+  Alloc PE / Size       2047 / <8.00 GiB
+  Free  PE / Size       512 / 2.00 GiB
+  VG UUID               zHM7Gi-7UYW-u9xK-4I95-8aor-3rrp-zXKDr0
+   
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgdisplay -v otus
+  --- Volume group ---
+  VG Name               otus
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               0
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <10.00 GiB
+  PE Size               4.00 MiB
+  Total PE              2559
+  Alloc PE / Size       2047 / <8.00 GiB
+  Free  PE / Size       512 / 2.00 GiB
+  VG UUID               zHM7Gi-7UYW-u9xK-4I95-8aor-3rrp-zXKDr0
+   
+  --- Logical volume ---
+  LV Path                /dev/otus/test
+  LV Name                test
+  VG Name                otus
+  LV UUID                D3JfPl-ti70-Xf75-O4V7-kE48-P5lP-iRtGgf
+  LV Write Access        read/write
+  LV Creation host, time lvm03, 2022-02-09 18:42:05 +0000
+  LV Status              available
+  # open                 0
+  LV Size                <8.00 GiB
+  Current LE             2047
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+  --- Physical volumes ---
+  PV Name               /dev/sdb     
+  PV UUID               7wjFls-ktlc-kB6O-Lhny-fX66-4ZSa-zotjLD
+  PV Status             allocatable
+  Total PE / Free PE    2559 / 512
+   
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvdisplay /dev/otus/test 
+  --- Logical volume ---
+  LV Path                /dev/otus/test
+  LV Name                test
+  VG Name                otus
+  LV UUID                D3JfPl-ti70-Xf75-O4V7-kE48-P5lP-iRtGgf
+  LV Write Access        read/write
+  LV Creation host, time lvm03, 2022-02-09 18:42:05 +0000
+  LV Status              available
+  # open                 0
+  LV Size                <8.00 GiB
+  Current LE             2047
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     8192
+  Block device           253:0
+   
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -L100M -n small otus
+  Logical volume "small" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -L100M -n small otus[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[4Pdisplay /dev/otus/test [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Klvs
+  LV    VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  small otus -wi-a----- 100.00m                                                    
+  test  otus -wi-a-----  <8.00g                                                    
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mkfs.ext4 /dev/otus/test 
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+524288 inodes, 2096128 blocks
+104806 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=2147483648
+64 block groups
+32768 blocks per group, 32768 fragments per group
+8192 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632
+
+Allocating group tables:  0/64     done                            
+Writing inode tables:  0/64     done                            
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information:  0/64     done
+
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mkdir /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/otus/test /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# moute[K[Knt
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime,seclabel)
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,seclabel,size=112804k,nr_inodes=28201,mode=755)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,seclabel)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,seclabel,gid=5,mode=620,ptmxmode=000)
+tmpfs on /run type tmpfs (rw,nosuid,nodev,seclabel,mode=755)
+tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,seclabel,mode=755)
+cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)
+pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,net_prio,net_cls)
+cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,devices)
+cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,hugetlb)
+cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,blkio)
+cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuacct,cpu)
+cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,memory)
+cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,perf_event)
+cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,pids)
+cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,freezer)
+cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,seclabel,cpuset)
+configfs on /sys/kernel/config type configfs (rw,relatime)
+/dev/sda1 on / type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=30,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=11431)
+debugfs on /sys/kernel/debug type debugfs (rw,relatime)
+hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime,seclabel)
+mqueue on /dev/mqueue type mqueue (rw,relatime,seclabel)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)
+tmpfs on /run/user/1000 type tmpfs (rw,nosuid,nodev,relatime,seclabel,size=24068k,mode=700,uid=1000,gid=1000)
+/dev/mapper/otus-test on /data type ext4 (rw,relatime,seclabel,data=ordered)
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount | grw[Kep /data
+/dev/mapper/otus-test on [01;31m[K/data[m[K type ext4 (rw,relatime,seclabel,data=ordered)
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvcreate /dev/sdc
+  Physical volume "/dev/sdc" successfully created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgextend otus /dev/sdc
+  Volume group "otus" successfully extended
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgs
+  VG   #PV #LV #SN Attr   VSize  VFree 
+  otus   2   2   0 wz--n- 11.99g <3.90g
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgdisplay -v otus |gre[K[K[K f[Kgrep PV
+  Max [01;31m[KPV[m[K                0
+  Cur [01;31m[KPV[m[K                2
+  Act [01;31m[KPV[m[K                2
+  [01;31m[KPV[m[K Name               /dev/sdb     
+  [01;31m[KPV[m[K UUID               7wjFls-ktlc-kB6O-Lhny-fX66-4ZSa-zotjLD
+  [01;31m[KPV[m[K Status             allocatable
+  [01;31m[KPV[m[K Name               /dev/sdc     
+  [01;31m[KPV[m[K UUID               xX4KlC-nx2N-0XKY-E2PC-Mbmf-O1xS-DsGbe6
+  [01;31m[KPV[m[K Status             allocatable
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress
+511705088 bytes (512 MB) copied, 1.000645 s, 511 MB/s999292928 bytes (999 MB) copied, 2.001085 s, 499 MB/s1492123648 bytes (1.5 GB) copied, 3.002454 s, 497 MB/s1984954368 bytes (2.0 GB) copied, 4.028407 s, 493 MB/s2481979392 bytes (2.5 GB) copied, 5.030910 s, 493 MB/s2889875456 bytes (2.9 GB) copied, 6.033802 s, 479 MB/s3360686080 bytes (3.4 GB) copied, 7.034647 s, 478 MB/s3841982464 bytes (3.8 GB) copied, 8.070524 s, 476 MB/s4337958912 bytes (4.3 GB) copied, 9.070646 s, 478 MB/s4804575232 bytes (4.8 GB) copied, 10.074157 s, 477 MB/s5293211648 bytes (5.3 GB) copied, 11.075182 s, 478 MB/s5778702336 bytes (5.8 GB) copied, 12.082490 s, 478 MB/s6255804416 bytes (6.3 GB) copied, 13.083785 s, 478 MB/s6735003648 bytes (6.7 GB) copied, 14.085759 s, 478 MB/s7204765696 bytes (7.2 GB) copied, 15.086118 s, 478 MB/s7683964928 bytes (7.7 GB) copied, 16.086322 s, 478 MB/s8161067008 bytes (8.2 GB) copied, 17.086382 s, 478 MB/s
+dd: error writing ‘/data/test.log’: No space left on device
+7880+0 records in
+7879+0 records out
+8262189056 bytes (8.3 GB) copied, 17.2964 s, 478 MB/s
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h 
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               111M     0  111M   0% /dev
+tmpfs                  118M     0  118M   0% /dev/shm
+tmpfs                  118M  4.5M  114M   4% /run
+tmpfs                  118M     0  118M   0% /sys/fs/cgroup
+/dev/sda1               40G  3.2G   37G   8% /
+tmpfs                   24M     0   24M   0% /run/user/1000
+/dev/mapper/otus-test  7.8G  7.8G     0 100% /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h |grep data
+/dev/mapper/otus-test  7.8G  7.8G     0 100% /[01;31m[Kdata[m[K
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lc[Kvextenf[Kd -l+80%FREE /dev/otus/test 
+  Size of logical volume otus/test changed from <8.00 GiB (2047 extents) to <11.12 GiB (2846 extents).
+  Logical volume otus/test successfully resized.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvs
+  LV    VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  small otus -wi-a----- 100.00m                                                    
+  test  otus -wi-ao---- <11.12g                                                    
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h | grep data
+/dev/mapper/otus-test  7.8G  7.8G     0 100% /[01;31m[Kdata[m[K
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# resize2fs /dev/ou[Ktus/test 
+resize2fs 1.42.9 (28-Dec-2013)
+Filesystem at /dev/otus/test is mounted on /data; on-line resizing required
+old_desc_blocks = 1, new_desc_blocks = 2
+The filesystem on /dev/otus/test is now 2914304 blocks long.
+
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h | grep data
+/dev/mapper/otus-test   11G  7.8G  2.6G  76% /[01;31m[Kdata[m[K
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# umount /data/[K
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# e2fsck -fy /dev/otus/test
+e2fsck 1.42.9 (28-Dec-2013)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/otus/test: 12/729088 files (0.0% non-contiguous), 2105907/2914304 blocks
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# resize2fs /dev/or[Ktus/test 10G
+resize2fs 1.42.9 (28-Dec-2013)
+Resizing the filesystem on /dev/otus/test to 2621440 (4k) blocks.
+The filesystem on /dev/otus/test is now 2621440 blocks long.
+
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvreduce /dev/otus/test _[K-L10G
+  WARNING: Reducing active logical volume to 10.00 GiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+Do you really want to reduce otus/test? [y/n]: y
+  Size of logical volume otus/test changed from <11.12 GiB (2846 extents) to 10.00 GiB (2560 extents).
+  Logical volume otus/test successfully resized.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/otus/test /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               111M     0  111M   0% /dev
+tmpfs                  118M     0  118M   0% /dev/shm
+tmpfs                  118M  4.5M  114M   4% /run
+tmpfs                  118M     0  118M   0% /sys/fs/cgroup
+/dev/sda1               40G  3.2G   37G   8% /
+tmpfs                   24M     0   24M   0% /run/user/1000
+/dev/mapper/otus-test  9.8G  7.8G  1.6G  84% /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h | grep data
+/dev/mapper/otus-test  9.8G  7.8G  1.6G  84% /[01;31m[Kdata[m[K
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvs
+  LV    VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  small otus -wi-a----- 100.00m                                                    
+  test  otus -wi-ao----  10.00g                                                    
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -L500M -s -n test-snap /dev/ous[K[Ktus/test
+  Logical volume "test-snap" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgs
+  VG   #PV #LV #SN Attr   VSize  VFree 
+  otus   2   3   1 wz--n- 11.99g <1.41g
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgs -osudo vgs -o +lv_size,lv_name | grep test
+  Logical Volume Fields
+  ---------------------
+    lv_all                 - All fields in this section.
+    lv_uuid                - Unique identifier.
+    lv_name                - Name.  LVs created for internal use are enclosed in brackets.
+    lv_full_name           - Full name of LV including its VG, namely VG/LV.
+    lv_path                - Full pathname for LV. Blank for internal LVs.
+    lv_dm_path             - Internal device-mapper pathname for LV (in /dev/mapper directory).
+    lv_parent              - For LVs that are components of another LV, the parent LV.
+    lv_layout              - LV layout.
+    lv_role                - LV role.
+    lv_initial_image_sync  - Set if mirror/RAID images underwent initial resynchronization.
+    lv_image_synced        - Set if mirror/RAID image is synchronized.
+    lv_merging             - Set if snapshot LV is being merged to origin.
+    lv_converting          - Set if LV is being converted.
+    lv_allocation_policy   - LV allocation policy.
+    lv_allocation_locked   - Set if LV is locked against allocation changes.
+    lv_fixed_minor         - Set if LV has fixed minor number assigned.
+    lv_skip_activation     - Set if LV is skipped on activation.
+    lv_when_full           - For thin pools, behavior when full.
+    lv_active              - Active state of the LV.
+    lv_active_locally      - Set if the LV is active locally.
+    lv_active_remotely     - Set if the LV is active remotely.
+    lv_active_exclusively  - Set if the LV is active exclusively.
+    lv_major               - Persistent major number or -1 if not persistent.
+    lv_minor               - Persistent minor number or -1 if not persistent.
+    lv_read_ahead          - Read ahead setting in current units.
+    lv_size                - Size of LV in current units.
+    lv_metadata_size       - For thin and cache pools, the size of the LV that holds the metadata.
+    seg_count              - Number of segments in LV.
+    origin                 - For snapshots and thins, the origin device of this LV.
+    origin_uuid            - For snapshots and thins, the UUID of origin device of this LV.
+    origin_size            - For snapshots, the size of the origin device of this LV.
+    lv_ancestors           - LV ancestors ignoring any stored history of the ancestry chain.
+    lv_full_ancestors      - LV ancestors including stored history of the ancestry chain.
+    lv_descendants         - LV descendants ignoring any stored history of the ancestry chain.
+    lv_full_descendants    - LV descendants including stored history of the ancestry chain.
+    raid_mismatch_count    - For RAID, number of mismatches found or repaired.
+    raid_sync_action       - For RAID, the current synchronization action being performed.
+    raid_write_behind      - For RAID1, the number of outstanding writes allowed to writemostly devices.
+    raid_min_recovery_rate - For RAID1, the minimum recovery I/O load in kiB/sec/disk.
+    raid_max_recovery_rate - For RAID1, the maximum recovery I/O load in kiB/sec/disk.
+    move_pv                - For pvmove, Source PV of temporary LV created by pvmove.
+    move_pv_uuid           - For pvmove, the UUID of Source PV of temporary LV created by pvmove.
+    convert_lv             - For lvconvert, Name of temporary LV created by lvconvert.
+    convert_lv_uuid        - For lvconvert, UUID of temporary LV created by lvconvert.
+    mirror_log             - For mirrors, the LV holding the synchronisation log.
+    mirror_log_uuid        - For mirrors, the UUID of the LV holding the synchronisation log.
+    data_lv                - For thin and cache pools, the LV holding the associated data.
+    data_lv_uuid           - For thin and cache pools, the UUID of the LV holding the associated data.
+    metadata_lv            - For thin and cache pools, the LV holding the associated metadata.
+    metadata_lv_uuid       - For thin and cache pools, the UUID of the LV holding the associated metadata.
+    pool_lv                - For thin volumes, the thin pool LV for this volume.
+    pool_lv_uuid           - For thin volumes, the UUID of the thin pool LV for this volume.
+    lv_tags                - Tags, if any.
+    lv_profile             - Configuration profile attached to this LV.
+    lv_lockargs            - Lock args of the LV used by lvmlockd.
+    lv_time                - Creation time of the LV, if known
+    lv_time_removed        - Removal time of the LV, if known
+    lv_host                - Creation host of the LV, if known.
+    lv_modules             - Kernel device-mapper modules required for this LV.
+    lv_historical          - Set if the LV is historical.
+   
+  Logical Volume Device Info Fields
+  ---------------------------------
+    lv_all                 - All fields in this section.
+    lv_kernel_major        - Currently assigned major number or -1 if LV is not active.
+    lv_kernel_minor        - Currently assigned minor number or -1 if LV is not active.
+    lv_kernel_read_ahead   - Currently-in-use read ahead setting in current units.
+    lv_permissions         - LV permissions.
+    lv_suspended           - Set if LV is suspended.
+    lv_live_table          - Set if LV has live table present.
+    lv_inactive_table      - Set if LV has inactive table present.
+    lv_device_open         - Set if LV device is open.
+   
+  Logical Volume Device Status Fields
+  -----------------------------------
+    lv_all                 - All fields in this section.
+    data_percent           - For snapshot, cache and thin pools and volumes, the percentage full if LV is active.
+    snap_percent           - For snapshots, the percentage full if LV is active.
+    metadata_percent       - For cache and thin pools, the percentage of metadata full if LV is active.
+    copy_percent           - For Cache, RAID, mirrors and pvmove, current percentage in-sync.
+    sync_percent           - For Cache, RAID, mirrors and pvmove, current percentage in-sync.
+    cache_total_blocks     - Total cache blocks.
+    cache_used_blocks      - Used cache blocks.
+    cache_dirty_blocks     - Dirty cache blocks.
+    cache_read_hits        - Cache read hits.
+    cache_read_misses      - Cache read misses.
+    cache_write_hits       - Cache write hits.
+    cache_write_misses     - Cache write misses.
+    kernel_cache_settings  - Cache settings/parameters as set in kernel, including default values (cached segments only).
+    kernel_cache_policy    - Cache policy used in kernel.
+    kernel_metadata_format - Cache metadata format used in kernel.
+    lv_health_status       - LV health status.
+    kernel_discards        - For thin pools, how discards are handled in kernel.
+    lv_check_needed        - For thin pools and cache volumes, whether metadata check is needed.
+    lv_merge_failed        - Set if snapshot merge failed.
+    lv_snapshot_invalid    - Set if snapshot LV is invalid.
+   
+  Logical Volume Device Info and Status Combined Fields
+  -----------------------------------------------------
+    lv_all                 - All fields in this section.
+    lv_attr                - Various attributes - see man page.
+   
+  Physical Volume Label Fields
+  ----------------------------
+    pv_all                 - All fields in this section.
+    pv_fmt                 - Type of metadata.
+    pv_uuid                - Unique identifier.
+    dev_size               - Size of underlying device in current units.
+    pv_name                - Name.
+    pv_major               - Device major number.
+    pv_minor               - Device minor number.
+    pv_mda_free            - Free metadata area space on this device in current units.
+    pv_mda_size            - Size of smallest metadata area on this device in current units.
+    pv_ext_vsn             - PV header extension version.
+   
+  Physical Volume Fields
+  ----------------------
+    pv_all                 - All fields in this section.
+    pe_start               - Offset to the start of data on the underlying device.
+    pv_size                - Size of PV in current units.
+    pv_free                - Total amount of unallocated space in current units.
+    pv_used                - Total amount of allocated space in current units.
+    pv_attr                - Various attributes - see man page.
+    pv_allocatable         - Set if this device can be used for allocation.
+    pv_exported            - Set if this device is exported.
+    pv_missing             - Set if this device is missing in system.
+    pv_pe_count            - Total number of Physical Extents.
+    pv_pe_alloc_count      - Total number of allocated Physical Extents.
+    pv_tags                - Tags, if any.
+    pv_mda_count           - Number of metadata areas on this device.
+    pv_mda_used_count      - Number of metadata areas in use on this device.
+    pv_ba_start            - Offset to the start of PV Bootloader Area on the underlying device in current units.
+    pv_ba_size             - Size of PV Bootloader Area in current units.
+    pv_in_use              - Set if PV is used.
+    pv_duplicate           - Set if PV is an unchosen duplicate.
+   
+  Volume Group Fields
+  -------------------
+    vg_all                 - All fields in this section.
+    vg_fmt                 - Type of metadata.
+    vg_uuid                - Unique identifier.
+    vg_name                - Name.
+    vg_attr                - Various attributes - see man page.
+    vg_permissions         - VG permissions.
+    vg_extendable          - Set if VG is extendable.
+    vg_exported            - Set if VG is exported.
+    vg_partial             - Set if VG is partial.
+    vg_allocation_policy   - VG allocation policy.
+    vg_clustered           - Set if VG is clustered.
+    vg_shared              - Set if VG is shared.
+    vg_size                - Total size of VG in current units.
+    vg_free                - Total amount of free space in current units.
+    vg_sysid               - System ID of the VG indicating which host owns it.
+    vg_systemid            - System ID of the VG indicating which host owns it.
+    vg_lock_type           - Lock type of the VG used by lvmlockd.
+    vg_lock_args           - Lock args of the VG used by lvmlockd.
+    vg_extent_size         - Size of Physical Extents in current units.
+    vg_extent_count        - Total number of Physical Extents.
+    vg_free_count          - Total number of unallocated Physical Extents.
+    max_lv                 - Maximum number of LVs allowed in VG or 0 if unlimited.
+    max_pv                 - Maximum number of PVs allowed in VG or 0 if unlimited.
+    pv_count               - Number of PVs in VG.
+    vg_missing_pv_count    - Number of PVs in VG which are missing.
+    lv_count               - Number of LVs.
+    snap_count             - Number of snapshots.
+    vg_seqno               - Revision number of internal metadata.  Incremented whenever it changes.
+    vg_tags                - Tags, if any.
+    vg_profile             - Configuration profile attached to this VG.
+    vg_mda_count           - Number of metadata areas on this VG.
+    vg_mda_used_count      - Number of metadata areas in use on this VG.
+    vg_mda_free            - Free metadata area space for this VG in current units.
+    vg_mda_size            - Size of smallest metadata area for this VG in current units.
+    vg_mda_copies          - Target number of in use metadata areas in the VG.
+   
+  Logical Volume Segment Fields
+  -----------------------------
+    seg_all                - All fields in this section.
+    segtype                - Type of LV segment.
+    stripes                - Number of stripes or mirror/raid1 legs.
+    data_stripes           - Number of data stripes or mirror/raid1 legs.
+    reshape_len            - Size of out-of-place reshape space in current units.
+    reshape_len_le         - Size of out-of-place reshape space in logical extents.
+    data_copies            - Number of data copies.
+    data_offset            - Data offset on each image device.
+    new_data_offset        - New data offset after any reshape on each image device.
+    parity_chunks          - Number of (rotating) parity chunks.
+    stripe_size            - For stripes, amount of data placed on one device before switching to the next.
+    region_size            - For mirrors/raids, the unit of data per leg when synchronizing devices.
+    chunk_size             - For snapshots, the unit of data used when tracking changes.
+    thin_count             - For thin pools, the number of thin volumes in this pool.
+    discards               - For thin pools, how discards are handled.
+    cache_metadata_format  - For cache, metadata format in use.
+    cache_mode             - For cache, how writes are cached.
+    zero                   - For thin pools and volumes, if zeroing is enabled.
+    transaction_id         - For thin pools, the transaction id and creation transaction id for thins.
+    thin_id                - For thin volume, the thin device id.
+    seg_start              - Offset within the LV to the start of the segment in current units.
+    seg_start_pe           - Offset within the LV to the start of the segment in physical extents.
+    seg_size               - Size of segment in current units.
+    seg_size_pe            - Size of segment in physical extents.
+    seg_tags               - Tags, if any.
+    seg_pe_ranges          - Ranges of Physical Extents of underlying devices in command line format (deprecated, use seg_le_ranges for common format).
+    seg_le_ranges          - Ranges of Logical Extents of underlying devices in command line format.
+    seg_metadata_le_ranges - Ranges of Logical Extents of underlying metadata devices in command line format.
+    devices                - Underlying devices used with starting extent numbers.
+    metadata_devices       - Underlying metadata devices used with starting extent numbers.
+    seg_monitor            - Dmeventd monitoring status of the segment.
+    cache_policy           - The cache policy (cached segments only).
+    cache_settings         - Cache settings/parameters (cached segments only).
+   
+  Physical Volume Segment Fields
+  ------------------------------
+    pvseg_all              - All fields in this section.
+    pvseg_start            - Physical Extent number of start of segment.
+    pvseg_size             - Number of extents in segment.
+   
+  Special Fields
+  --------------
+    selected               - Set if item passes selection criteria.
+    help                   - Show help.
+    ?                      - Show help.
+   
+  Unrecognised field: sudo
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgs -osudo vgs -o +lv_size,lv_name | grep test[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P
+  otus   2   3   1 wz--n- 11.99g <1.41g  10.00g [01;31m[Ktest[m[K     
+  otus   2   3   1 wz--n- 11.99g <1.41g 500.00m [01;31m[Ktest[m[K-snap
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblk
+NAME                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                     8:0    0   40G  0 disk 
+└─sda1                  8:1    0   40G  0 part /
+sdb                     8:16   0   10G  0 disk 
+├─otus-small          253:1    0  100M  0 lvm  
+└─otus-test-real      253:2    0   10G  0 lvm  
+  ├─otus-test         253:0    0   10G  0 lvm  /data
+  └─otus-test--snap   253:4    0   10G  0 lvm  
+sdc                     8:32   0    2G  0 disk 
+├─otus-test-real      253:2    0   10G  0 lvm  
+│ ├─otus-test         253:0    0   10G  0 lvm  /data
+│ └─otus-test--snap   253:4    0   10G  0 lvm  
+└─otus-test--snap-cow 253:3    0  500M  0 lvm  
+  └─otus-test--snap   253:4    0   10G  0 lvm  
+sdd                     8:48   0    1G  0 disk 
+sde                     8:64   0    1G  0 disk 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mkdir /data-snap
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/otus/test-snap /data-snap/
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# ll /data-snap/
+total 8068564
+drwx------. 2 root root      16384 Feb  9 18:44 [0m[38;5;27mlost+found[0m
+-rw-r--r--. 1 root root 8262189056 Feb  9 18:47 test.log
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# umount /da/[Kte[Ka-snap 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# rm[K[Kls -la /data
+total 8068568
+drwxr-xr-x.  3 root root       4096 Feb  9 18:47 [0m[38;5;27m.[0m
+dr-xr-xr-x. 20 root root        284 Feb  9 18:54 [38;5;27m..[0m
+drwx------.  2 root root      16384 Feb  9 18:44 [38;5;27mlost+found[0m
+-rw-r--r--.  1 root root 8262189056 Feb  9 18:47 test.log
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# ls -la /data[1P/data[1P/data[1P/data[1P/data[1P/data[1P/data[1P/datar/datam/data /data[C[C[C[C[C/r[Ktest.log
+rm: remove regular file ‘/data/test.log’? y
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# ll /data
+total 16
+drwx------. 2 root root 16384 Feb  9 18:44 [0m[38;5;27mlost+found[0m
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# umount /data/
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvconvert --merge /dev/otus/test-snap 
+  Merging of volume otus/test-snap started.
+  otus/test: Merged: 99.99%
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/otus/test /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# ll /data
+total 8068564
+drwx------. 2 root root      16384 Feb  9 18:44 [0m[38;5;27mlost+found[0m
+-rw-r--r--. 1 root root 8262189056 Feb  9 18:47 test.log
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvcreate /dev/sd{d,e}
+  Physical volume "/dev/sdd" successfully created.
+  Physical volume "/dev/sde" successfully created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgcreate vg00 /dev/sd{d,e{[K}
+  Volume group "vg00" successfully created
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -l+80%FREE -m1 -m mrror[K[K[K[Kirror vg00
+  Option -m/--mirrors may not be repeated.
+  Error during parsing of command line.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -l+80%FREE -m1 -m mirror vg00[1P[1@n
+  Logical volume "mirror" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvs
+  LV     VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  small  otus -wi-a----- 100.00m                                                    
+  test   otus -wi-ao----  10.00g                                                    
+  mirror vg00 rwi-a-r--- 816.00m                                    93.86           
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvs
+  LV     VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  small  otus -wi-a----- 100.00m                                                    
+  test   otus -wi-ao----  10.00g                                                    
+  mirror vg00 rwi-a-r--- 816.00m                                    100.00          
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df-[K h
+df: ‘h’: No such file or directory
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df h[K-h
+Filesystem             Size  Used Avail Use% Mounted on
+devtmpfs               111M     0  111M   0% /dev
+tmpfs                  118M     0  118M   0% /dev/shm
+tmpfs                  118M  4.5M  114M   4% /run
+tmpfs                  118M     0  118M   0% /sys/fs/cgroup
+/dev/sda1               40G  3.2G   37G   8% /
+tmpfs                   24M     0   24M   0% /run/user/1000
+/dev/mapper/otus-test  9.8G  7.8G  1.6G  84% /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                      8:0    0   40G  0 disk 
+└─sda1                   8:1    0   40G  0 part /
+sdb                      8:16   0   10G  0 disk 
+├─otus-test            253:0    0   10G  0 lvm  /data
+└─otus-small           253:1    0  100M  0 lvm  
+sdc                      8:32   0    2G  0 disk 
+└─otus-test            253:0    0   10G  0 lvm  /data
+sdd                      8:48   0    1G  0 disk 
+├─vg00-mirror_rmeta_0  253:2    0    4M  0 lvm  
+│ └─vg00-mirror        253:6    0  816M  0 lvm  
+└─vg00-mirror_rimage_0 253:3    0  816M  0 lvm  
+  └─vg00-mirror        253:6    0  816M  0 lvm  
+sde                      8:64   0    1G  0 disk 
+├─vg00-mirror_rmeta_1  253:4    0    4M  0 lvm  
+│ └─vg00-mirror        253:6    0  816M  0 lvm  
+└─vg00-mirror_rimage_1 253:5    0  816M  0 lvm  
+  └─vg00-mirror        253:6    0  816M  0 lvm  
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblk[K[K[K[K[Kumount /data
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# l;v[K[K[Klvremove otu[K[K[K/dev/otus/test 
+Do you really want to remove active logical volume otus/test? [y/n]: y
+  Logical volume "test" successfully removed
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvremove /dev/otus/test [K[K[K[K[Ksmall
+Do you really want to remove active logical volume otus/small? [y/n]: y
+  Logical volume "small" successfully removed
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# b[Kg[Kvgs
+  VG   #PV #LV #SN Attr   VSize  VFree  
+  otus   2   0   0 wz--n- 11.99g  11.99g
+  vg00   2   1   0 wz--n-  1.99g 400.00m
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgremove /dev/[K[K[K[K[Kotus
+  Volume group "otus" successfully removed
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvremove /dev/sdb
+  Labels on physical volume "/dev/sdb" successfully wiped.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvcreq[Kate /dev/sdb
+  Physical volume "/dev/sdb" successfully created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgreate vg-root /dev/sdb
+bash: vgreate: command not found
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgreate vg-root /dev/sdb[1@c
+  Volume group "vg-root" successfully created
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -n lv-root -l+100$[K%FREE /dev/vg-root
+WARNING: ext4 signature detected on /dev/vg-root/lv-root at offset 1080. Wipe it? [y/n]: y
+  Wiping ext4 signature on /dev/vg-root/lv-root.
+  Logical volume "lv-root" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mffs[K[K[K[Kmkfs.xfs /dev/vg-root/lv-root 
+meta-data=/dev/vg-root/lv-root   isize=512    agcount=4, agsize=655104 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=2620416, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/vg-root/lv-root /mnt
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# df -h
+Filesystem                     Size  Used Avail Use% Mounted on
+devtmpfs                       111M     0  111M   0% /dev
+tmpfs                          118M     0  118M   0% /dev/shm
+tmpfs                          118M  4.6M  113M   4% /run
+tmpfs                          118M     0  118M   0% /sys/fs/cgroup
+/dev/sda1                       40G  3.2G   37G   8% /
+tmpfs                           24M     0   24M   0% /run/user/1000
+tmpfs                           24M     0   24M   0% /run/user/0
+/dev/mapper/vg--root-lv--root   10G   33M   10G   1% /mnt
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# xfsdumo-[K -J - dev[K[K[K[K /dev/sda1 | xfsres[1P[1@p[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctore -J - /mnt
+bash: xfsrestore: command not found
+bash: xfsdump: command not found
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# yum install xfs
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.sale-dedic.com
+No package [1mxfs(B[m available.
+Error: Nothing to do
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# yum install xfs*
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.sale-dedic.com
+Resolving Dependencies
+--> Running transaction check
+---> Package xfsdump.x86_64 0:3.1.7-1.el7 will be installed
+--> Processing Dependency: attr >= 2.0.0 for package: xfsdump-3.1.7-1.el7.x86_64
+---> Package xfsprogs.x86_64 0:4.5.0-20.el7 will be updated
+---> Package xfsprogs.x86_64 0:4.5.0-22.el7 will be an update
+---> Package xfsprogs-devel.x86_64 0:4.5.0-22.el7 will be installed
+--> Processing Dependency: libuuid-devel for package: xfsprogs-devel-4.5.0-22.el7.x86_64
+--> Running transaction check
+---> Package attr.x86_64 0:2.4.46-13.el7 will be installed
+---> Package libuuid-devel.x86_64 0:2.23.2-65.el7_9.1 will be installed
+--> Processing Dependency: libuuid = 2.23.2-65.el7_9.1 for package: libuuid-devel-2.23.2-65.el7_9.1.x86_64
+--> Running transaction check
+---> Package libuuid.x86_64 0:2.23.2-63.el7 will be updated
+--> Processing Dependency: libuuid = 2.23.2-63.el7 for package: libblkid-2.23.2-63.el7.x86_64
+--> Processing Dependency: libuuid = 2.23.2-63.el7 for package: util-linux-2.23.2-63.el7.x86_64
+--> Processing Dependency: libuuid = 2.23.2-63.el7 for package: libmount-2.23.2-63.el7.x86_64
+---> Package libuuid.x86_64 0:2.23.2-65.el7_9.1 will be an update
+--> Running transaction check
+---> Package libblkid.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libblkid.x86_64 0:2.23.2-65.el7_9.1 will be an update
+---> Package libmount.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libmount.x86_64 0:2.23.2-65.el7_9.1 will be an update
+---> Package util-linux.x86_64 0:2.23.2-63.el7 will be updated
+---> Package util-linux.x86_64 0:2.23.2-65.el7_9.1 will be an update
+--> Processing Dependency: libsmartcols = 2.23.2-65.el7_9.1 for package: util-linux-2.23.2-65.el7_9.1.x86_64
+--> Running transaction check
+---> Package libsmartcols.x86_64 0:2.23.2-63.el7 will be updated
+---> Package libsmartcols.x86_64 0:2.23.2-65.el7_9.1 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================================================================================
+ Package                                           Arch                                      Version                                              Repository                                  Size
+===================================================================================================================================================================================================
+Installing:
+ xfsdump                                           x86_64                                    3.1.7-1.el7                                          base                                       308 k
+ xfsprogs-devel                                    x86_64                                    4.5.0-22.el7                                         base                                        69 k
+Updating:
+ xfsprogs                                          x86_64                                    4.5.0-22.el7                                         base                                       897 k
+Installing for dependencies:
+ attr                                              x86_64                                    2.4.46-13.el7                                        base                                        66 k
+ libuuid-devel                                     x86_64                                    2.23.2-65.el7_9.1                                    updates                                     93 k
+Updating for dependencies:
+ libblkid                                          x86_64                                    2.23.2-65.el7_9.1                                    updates                                    183 k
+ libmount                                          x86_64                                    2.23.2-65.el7_9.1                                    updates                                    185 k
+ libsmartcols                                      x86_64                                    2.23.2-65.el7_9.1                                    updates                                    143 k
+ libuuid                                           x86_64                                    2.23.2-65.el7_9.1                                    updates                                     84 k
+ util-linux                                        x86_64                                    2.23.2-65.el7_9.1                                    updates                                    2.0 M
+
+Transaction Summary
+===================================================================================================================================================================================================
+Install  2 Packages (+2 Dependent packages)
+Upgrade  1 Package  (+5 Dependent packages)
+
+Total download size: 4.0 M
+Is this ok [y/d/N]: n
+Exiting on user command
+Your transaction was saved, rerun it with:
+ yum load-transaction /tmp/yum_save_tx.2022-02-09.19-05.gnqi3v.yumtx
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# yum install xfs*[Kdumo[Kp
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.sale-dedic.com
+Resolving Dependencies
+--> Running transaction check
+---> Package xfsdump.x86_64 0:3.1.7-1.el7 will be installed
+--> Processing Dependency: attr >= 2.0.0 for package: xfsdump-3.1.7-1.el7.x86_64
+--> Running transaction check
+---> Package attr.x86_64 0:2.4.46-13.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================================================================================
+ Package                                       Arch                                         Version                                               Repository                                  Size
+===================================================================================================================================================================================================
+Installing:
+ xfsdump                                       x86_64                                       3.1.7-1.el7                                           base                                       308 k
+Installing for dependencies:
+ attr                                          x86_64                                       2.4.46-13.el7                                         base                                        66 k
+
+Transaction Summary
+===================================================================================================================================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 374 k
+Installed size: 1.1 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/2): attr-2.4.46-13.el7.x86_64.rpm                                                                                                                                        |  66 kB  00:00:00     
+(2/2): xfsdump-3.1.7-1.el7.x86_64.rpm                                                                                                                                       | 308 kB  00:00:00     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                              1.1 MB/s | 374 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : attr-2.4.46-13.el7.x86_64 [                                                                                                                                                   ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [########                                                                                                                                           ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##########################                                                                                                                         ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#######################################                                                                                                            ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [############################################                                                                                                       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##########################################################                                                                                         ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#############################################################                                                                                      ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###############################################################                                                                                    ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#########################################################################                                                                          ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#############################################################################                                                                      ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [############################################################################################                                                       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##############################################################################################                                                     ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###############################################################################################                                                    ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##################################################################################################                                                 ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [########################################################################################################                                           ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [############################################################################################################                                       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#################################################################################################################                                  ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#######################################################################################################################                            ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###########################################################################################################################                        ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###############################################################################################################################                    ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#####################################################################################################################################              ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##########################################################################################################################################         ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#############################################################################################################################################      ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##############################################################################################################################################     ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [################################################################################################################################################   ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#################################################################################################################################################  ] 1/2  Installing : attr-2.4.46-13.el7.x86_64                                                                                                                                                       1/2 
+  Installing : xfsdump-3.1.7-1.el7.x86_64 [                                                                                                                                                  ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [########                                                                                                                                          ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [##################                                                                                                                                ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#############################                                                                                                                     ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#####################################                                                                                                             ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [###########################################                                                                                                       ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [######################################################                                                                                            ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [################################################################                                                                                  ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#########################################################################                                                                         ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [###################################################################################                                                               ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#############################################################################################                                                     ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [######################################################################################################                                            ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [############################################################################################################                                      ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [################################################################################################################                                  ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [###################################################################################################################                               ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [####################################################################################################################                              ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#############################################################################################################################                     ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#################################################################################################################################                 ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [##########################################################################################################################################        ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [#############################################################################################################################################     ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [###############################################################################################################################################   ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64 [################################################################################################################################################  ] 2/2  Installing : xfsdump-3.1.7-1.el7.x86_64                                                                                                                                                      2/2 
+  Verifying  : attr-2.4.46-13.el7.x86_64                                                                                                                                                       1/2 
+  Verifying  : xfsdump-3.1.7-1.el7.x86_64                                                                                                                                                      2/2 
+
+Installed:
+  xfsdump.x86_64 0:3.1.7-1.el7                                                                                                                                                                     
+
+Dependency Installed:
+  attr.x86_64 0:2.4.46-13.el7                                                                                                                                                                      
+
+Complete!
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# yum install xfsdump*[K[Kxfsdump -J - /dev/sda1 | xfsrestore -J - /mnt
+xfsdump: using file dump (drive_simple) strategy
+xfsdump: version 3.1.7 (dump format 3.0)
+xfsrestore: using file dump (drive_simple) strategy
+xfsrestore: version 3.1.7 (dump format 3.0)
+xfsdump: level 0 dump of lvm03:/
+xfsdump: dump date: Wed Feb  9 19:06:29 2022
+xfsdump: session id: c76349d9-a2fa-4583-a173-b0f6c16d2f67
+xfsdump: session label: ""
+xfsrestore: searching media for dump
+xfsdump: ino map phase 1: constructing initial dump list
+xfsdump: ino map phase 2: skipping (no pruning necessary)
+xfsdump: ino map phase 3: skipping (only one dump stream)
+xfsdump: ino map construction complete
+xfsdump: estimated dump size: 3295361984 bytes
+xfsdump: creating dump session media file 0 (media 0, file 0)
+xfsdump: dumping ino map
+xfsdump: dumping directories
+xfsrestore: examining media file 0
+xfsrestore: dump description: 
+xfsrestore: hostname: lvm03
+xfsrestore: mount point: /
+xfsrestore: volume: /dev/sda1
+xfsrestore: session time: Wed Feb  9 19:06:29 2022
+xfsrestore: level: 0
+xfsrestore: session label: ""
+xfsrestore: media label: ""
+xfsrestore: file system id: 1c419d6c-5064-4a2b-953c-05b2c67edb15
+xfsrestore: session id: c76349d9-a2fa-4583-a173-b0f6c16d2f67
+xfsrestore: media id: 98ddd7b4-2b29-4c1e-96b4-3131843988ae
+xfsrestore: searching media for directory dump
+xfsrestore: reading directories
+xfsdump: dumping non-directory files
+xfsrestore: 3020 directories and 32196 entries processed
+xfsrestore: directory post-processing
+xfsrestore: restoring non-directory files
+xfsdump: ending media file
+xfsdump: media file size 3257805592 bytes
+xfsdump: dump size (non-dir files) : 3239098824 bytes
+xfsdump: dump complete: 22 seconds elapsed
+xfsdump: Dump Status: SUCCESS
+xfsrestore: restore complete: 22 seconds elapsed
+xfsrestore: Restore Status: SUCCESS
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# ll /mnt
+total 2097168
+lrwxrwxrwx.  1 root    root             7 Feb  9 19:06 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.  4 root    root           275 Apr 30  2020 [38;5;27mboot[0m
+drwxr-xr-x.  2 root    root             6 Feb  9 18:44 [38;5;27mdata[0m
+drwxr-xr-x.  2 root    root             6 Feb  9 18:54 [38;5;27mdata-snap[0m
+drwxr-xr-x.  2 root    root             6 Apr 30  2020 [38;5;27mdev[0m
+drwxr-xr-x. 81 root    root          8192 Feb  9 18:40 [38;5;27metc[0m
+drwxr-xr-x.  3 root    root            21 Apr 30  2020 [38;5;27mhome[0m
+lrwxrwxrwx.  1 root    root             7 Feb  9 19:06 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.  1 root    root             9 Feb  9 19:06 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.  2 root    root             6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.  2 root    root             6 Apr 11  2018 [38;5;27mmnt[0m
+drwxr-xr-x.  2 root    root             6 Apr 11  2018 [38;5;27mopt[0m
+drwxr-xr-x.  2 root    root             6 Apr 30  2020 [38;5;27mproc[0m
+dr-xr-x---.  3 root    root           149 Feb  9 18:28 [38;5;27mroot[0m
+drwxr-xr-x.  2 root    root             6 Apr 30  2020 [38;5;27mrun[0m
+lrwxrwxrwx.  1 root    root             8 Feb  9 19:06 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.  2 root    root             6 Apr 11  2018 [38;5;27msrv[0m
+-rw-------.  1 root    root    2147483648 Apr 30  2020 swapfile
+drwxr-xr-x.  2 root    root             6 Apr 30  2020 [38;5;27msys[0m
+drwxrwxrwt.  8 root    root          4096 Feb  9 19:06 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x. 13 root    root           155 Apr 30  2020 [38;5;27musr[0m
+drwxrwxr-x.  3 vagrant vagrant         72 Feb  9 18:27 [38;5;27mvagrant[0m
+drwxr-xr-x. 18 root    root           254 Feb  9 18:28 [38;5;27mvar[0m
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# for i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /mnt/$i; done
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# chroot -h
+chroot: invalid option -- 'h'
+Try 'chroot --help' for more information.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# chroot -h[K-help
+Usage: chroot [OPTION] NEWROOT [COMMAND [ARG]...]
+  or:  chroot OPTION
+Run COMMAND with root directory set to NEWROOT.
+
+  --userspec=USER:GROUP  specify user and group (ID or name) to use
+  --groups=G_LIST        specify supplementary groups as g1,g2,..,gN
+      --help     display this help and exit
+      --version  output version information and exit
+
+If no command is given, run '${SHELL} -i' (default: '/bin/sh -i').
+
+GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
+For complete documentation, run: info coreutils 'chroot invocation'
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# chroot --help[K[K[K[K[K[K/mnt/
+]0;root@lvm03:/[?1034h[root@lvm03 /]# ls[K[Kll
+total 2097168
+lrwxrwxrwx.   1 root    root             7 Feb  9 19:06 [0m[38;5;51mbin[0m -> [38;5;27musr/bin[0m
+dr-xr-xr-x.   4 root    root           275 Apr 30  2020 [38;5;27mboot[0m
+drwxr-xr-x.   2 root    root             6 Feb  9 18:44 [38;5;27mdata[0m
+drwxr-xr-x.   2 root    root             6 Feb  9 18:54 [38;5;27mdata-snap[0m
+drwxr-xr-x.  19 root    root          3180 Feb  9 19:03 [38;5;27mdev[0m
+drwxr-xr-x.  81 root    root          8192 Feb  9 18:40 [38;5;27metc[0m
+drwxr-xr-x.   3 root    root            21 Apr 30  2020 [38;5;27mhome[0m
+lrwxrwxrwx.   1 root    root             7 Feb  9 19:06 [38;5;51mlib[0m -> [38;5;27musr/lib[0m
+lrwxrwxrwx.   1 root    root             9 Feb  9 19:06 [38;5;51mlib64[0m -> [38;5;27musr/lib64[0m
+drwxr-xr-x.   2 root    root             6 Apr 11  2018 [38;5;27mmedia[0m
+drwxr-xr-x.   2 root    root             6 Apr 11  2018 [38;5;27mmnt[0m
+drwxr-xr-x.   2 root    root             6 Apr 11  2018 [38;5;27mopt[0m
+dr-xr-xr-x. 184 root    root             0 Feb  9 18:28 [38;5;27mproc[0m
+dr-xr-x---.   3 root    root           149 Feb  9 18:28 [38;5;27mroot[0m
+drwxr-xr-x.  26 root    root           860 Feb  9 19:06 [38;5;27mrun[0m
+lrwxrwxrwx.   1 root    root             8 Feb  9 19:06 [38;5;51msbin[0m -> [38;5;27musr/sbin[0m
+drwxr-xr-x.   2 root    root             6 Apr 11  2018 [38;5;27msrv[0m
+-rw-------.   1 root    root    2147483648 Apr 30  2020 swapfile
+dr-xr-xr-x.  13 root    root             0 Feb  9 18:28 [38;5;27msys[0m
+drwxrwxrwt.   8 root    root          4096 Feb  9 19:06 [48;5;10;38;5;16mtmp[0m
+drwxr-xr-x.  13 root    root           155 Apr 30  2020 [38;5;27musr[0m
+drwxrwxr-x.   3 vagrant vagrant         72 Feb  9 18:27 [38;5;27mvagrant[0m
+drwxr-xr-x.  18 root    root           254 Feb  9 18:28 [38;5;27mvar[0m
+]0;root@lvm03:/[root@lvm03 /]# df -h
+Filesystem                     Size  Used Avail Use% Mounted on
+/dev/mapper/vg--root-lv--root   10G  3.2G  6.9G  32% /
+devtmpfs                       111M     0  111M   0% /dev
+tmpfs                          118M  4.6M  113M   4% /run
+/dev/sda1                       40G  3.2G   37G   8% /boot
+]0;root@lvm03:/[root@lvm03 /]# grub2-mkconfig -o /boot/grub2/grub.cfg
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.10.0-1127.el7.x86_64
+Found initrd image: /boot/initramfs-3.10.0-1127.el7.x86_64.img
+done
+]0;root@lvm03:/[root@lvm03 /]# cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;
+> s/.img//g"` --force; done
+Executing: /sbin/dracut -v initramfs-3.10.0-1127.el7.x86_64.img 3.10.0-1127.el7.x86_64 --force
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'plymouth' will not be installed, because command 'plymouthd' could not be found!
+dracut module 'plymouth' will not be installed, because command 'plymouth' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+*** Including module: bash ***
+*** Including module: nss-softokn ***
+*** Including module: i18n ***
+*** Including module: dm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 60-persistent-storage-dm.rules
+Skipping udev rule: 55-dm.rules
+*** Including module: kernel-modules ***
+Omitting driver floppy
+*** Including module: lvm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 56-lvm.rules
+Skipping udev rule: 60-persistent-storage-lvm.rules
+*** Including module: qemu ***
+*** Including module: rootfs-block ***
+*** Including module: terminfo ***
+*** Including module: udev-rules ***
+Skipping udev rule: 40-redhat-cpu-hotplug.rules
+Skipping udev rule: 91-permissions.rules
+*** Including module: biosdevname ***
+*** Including module: systemd ***
+*** Including module: usrmount ***
+*** Including module: base ***
+*** Including module: fs-lib ***
+*** Including module: shutdown ***
+*** Including modules done ***
+*** Installing kernel module dependencies and firmware ***
+*** Installing kernel module dependencies and firmware done ***
+*** Resolving executable dependencies ***
+*** Resolving executable dependencies done***
+*** Hardlinking files ***
+*** Hardlinking files done ***
+*** Stripping files ***
+*** Stripping files done ***
+*** Generating early-microcode cpio image contents ***
+*** No early-microcode cpio image needed ***
+*** Store current command line parameters ***
+*** Creating image file ***
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-1127.el7.x86_64.img' done ***
+]0;root@lvm03:/boot[root@lvm03 boot]# vi /b[K[K[K[K[Knano[K[K[K[Knano /b[K[K[K[K[K[K[Kdf -h
+Filesystem                     Size  Used Avail Use% Mounted on
+/dev/mapper/vg--root-lv--root   10G  3.2G  6.9G  32% /
+devtmpfs                       111M     0  111M   0% /dev
+tmpfs                          118M  4.6M  113M   4% /run
+/dev/sda1                       40G  3.2G   37G   8% /boot
+]0;root@lvm03:/boot[root@lvm03 boot]# nanot[K /boot/grub2/grub.cfg
+bash: nano: command not found
+]0;root@lvm03:/boot[root@lvm03 boot]# nano /boot/grub2/grub.cfg[1P /boot/grub2/grub.cfg[1P /boot/grub2/grub.cfg[1P /boot/grub2/grub.cfg[1P /boot/grub2/grub.cfg[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cv /boot/grub2/grub.cfgi /boot/grub2/grub.cfg
+[?1049h[?1h=[1;29r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[29;1H"/boot/grub2/grub.cfg" 127L, 3581C[1;1H#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub2-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+set pager=1
+
+if [ -s $prefix/grubenv ]; then
+  load_env
+fi
+if [ "${next_entry}" ] ; then
+   set default="${next_entry}"
+   set next_entry=
+   save_env next_entry
+   set boot_once=true
+else
+   set default="${saved_entry}"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi[1;1H[?12l[?25h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[?25l[1;28r[28;1H
+[1;29r[28;1Hexport menuentry_id_option[29;1H[K[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hif [ "${prev_saved_entry}" ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset saved_entry="${prev_saved_entry}"[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hsave_env saved_entry[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset prev_saved_entry=[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hsave_env prev_saved_entry[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset boot_once=true[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfunction savedefault {[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hif [ -z "${boot_once}" ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hsaved_entry="${chosen}"[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hsave_env saved_entry[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H}[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfunction load_video {[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hif [ x$feature_all_video_module = xy ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod all_video[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Helse[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod efi_gop[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod efi_uga[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod ieee1275_fb[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod vbe[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod vga[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod video_bochs[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hinsmod video_cirrus[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H}[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hterminal_output console[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hif [ x$feature_timeout_style = xy ] ; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset timeout_style=menu[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset timeout=1[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H# Fallback normal timeout code in case the timeout_style feature is[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H# unavailable.[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Helse[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hset timeout=1[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/00_header ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/00_tuned ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hset tuned_params=""[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hset tuned_initrd=""[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/00_tuned ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/01_users ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hif [ -f ${prefix}/user.cfg ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hsource ${prefix}/user.cfg[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hif [ -n "${GRUB2_PASSWORD}" ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hset superusers="root"[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hexport superusers[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;5Hpassword_pbkdf2 root ${GRUB2_PASSWORD}[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfi[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/01_users ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/10_linux ###[?12l[?25h[?25l[1;28r[1;1H[2M[1;29r[27;1Hmenuentry 'CentOS Linux (3.10.0-1127.el7.x86_64) 7 (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-3.10.0-1127.el7.x86_64-advanced-099[28;1H59d734-ddb8-48ae-a807-ef655f5c8901' {[27;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hload_video[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hset gfxpayload=keep[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hinsmod gzio[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hinsmod part_msdos[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hinsmod xfs[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hset root='hd0,msdos1'[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hif [ x$feature_platform_search_hint = xy ]; then[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;11Hsearch --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  1c419d6c-5064-4a2b-953c-05b2c67edb15[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Helse[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;11Hsearch --no-floppy --fs-uuid --set=root 1c419d6c-5064-4a2b-953c-05b2c67edb15[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hfi[?12l[?25h[?25l[1;28r[1;1H[2M[1;29r[27;9Hlinux16 /boot/vmlinuz-3.10.0-1127.el7.x86_64 root=/dev/mapper/vg--root-lv--root ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernell[28;1H=auto[27;8H[?12l[?25h[27m[m[H[2J[?25l[2;1H### BEGIN /etc/grub.d/01_users ###
+if [ -f ${prefix}/user.cfg ]; then
+  source ${prefix}/user.cfg
+  if [ -n "${GRUB2_PASSWORD}" ]; then
+    set superusers="root"
+    export superusers
+    password_pbkdf2 root ${GRUB2_PASSWORD}
+  fi
+fi
+### END /etc/grub.d/01_users ###
+
+### BEGIN /etc/grub.d/10_linux ###
+menuentry 'CentOS Linux (3.10.0-1127.el7.x86_64) 7 (Core)' --class centos --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-3.10.0-1127.el7.x86_64-advanced-099[15;1H59d734-ddb8-48ae-a807-ef655f5c8901' {[16;9Hload_video[17;9Hset gfxpayload=keep[18;9Hinsmod gzio[19;9Hinsmod part_msdos[20;9Hinsmod xfs[21;9Hset root='hd0,msdos1'[22;9Hif [ x$feature_platform_search_hint = xy ]; then[23;11Hsearch --no-floppy --fs-uuid --set=root --hint-bios=hd0,msdos1 --hint-efi=hd0,msdos1 --hint-baremetal=ahci0,msdos1  1c419d6c-5064-4a2b-953c-05b2c67edb15[24;9Helse[25;11Hsearch --no-floppy --fs-uuid --set=root 1c419d6c-5064-4a2b-953c-05b2c67edb15[26;9Hfi[27;9Hlinux16 /boot/vmlinuz-3.10.0-1127.el7.x86_64 root=/dev/mapper/vg--root-lv--root ro no_timer_check console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernell[28;1H=auto[27;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;9Hinitrd16 /boot/initramfs-3.10.0-1127.el7.x86_64.img[28;8H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H}[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hif [ "x$default" = 'CentOS Linux (3.10.0-1127.el7.x86_64) 7 (Core)' ]; then default='Advanced options for CentOS Linux>CentOS Linux (3.10.0-1127.el7.x86_64) 7 (Core)'; fi;[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/10_linux ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/20_linux_xen ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/20_linux_xen ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/20_ppc_terminfo ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/20_ppc_terminfo ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/30_os-prober ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/30_os-prober ###[?12l[?25h[?25l[1;28r[1;1H[2M[1;29r[28;1H### BEGIN /etc/grub.d/40_custom ###[27;1H[?12l[?25h
+[?25l[1;28r[28;1H
+[1;29r[28;1H# This file provides an easy way to add custom menu entries.  Simply type the[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H# menu entries you want to add after this comment.  Be careful not to change[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H# the 'exec tail' line above.[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### END /etc/grub.d/40_custom ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1H### BEGIN /etc/grub.d/41_custom ###[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hif [ -f  ${config_directory}/custom.cfg ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hsource ${config_directory}/custom.cfg[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Helif [ -z "${config_directory}" -a -f  $prefix/custom.cfg ]; then[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;3Hsource $prefix/custom.cfg;[?12l[?25h[?25l[1;28r[28;1H
+[1;29r[28;1Hfi[?12l[?25h[?25l[1;28r[1;1H[2M[1;29r[27;1H### END /etc/grub.d/41_custom ###
+[94m~                                                                                                                                                                                                  [27;1H[?12l[?25h[?25l
+
+[m:[?12l[?25hq[?25l[29;1H[K[29;1H[?1l>[?12l[?25h[?1049l]0;root@lvm03:/boot[root@lvm03 boot]# exit
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# sudo re[K[K[K[K[K[K[Kreboot
+Connection to 127.0.0.1 closed by remote host.
+Connection to 127.0.0.1 closed.
+]0;tesla@ol85:~/homework03[tesla@ol85 homework03]$ [K[tesla@ol85 homework03]$ vagrant ssh
+Last login: Wed Feb  9 18:39:04 2022 from 10.0.2.2
+]0;vagrant@lvm03:~[?1034h[vagrant@lvm03 ~]$ lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                      8:0    0   40G  0 disk 
+└─sda1                   8:1    0   40G  0 part 
+sdb                      8:16   0   10G  0 disk 
+└─vg--root-lv--root    253:5    0   10G  0 lvm  /
+sdc                      8:32   0    2G  0 disk 
+sdd                      8:48   0    1G  0 disk 
+├─vg00-mirror_rmeta_0  253:0    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_0 253:1    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+sde                      8:64   0    1G  0 disk 
+├─vg00-mirror_rmeta_1  253:2    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_1 253:3    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+]0;vagrant@lvm03:~[vagrant@lvm03 ~]$ df -h
+Filesystem                     Size  Used Avail Use% Mounted on
+devtmpfs                       110M     0  110M   0% /dev
+tmpfs                          118M     0  118M   0% /dev/shm
+tmpfs                          118M  4.5M  114M   4% /run
+tmpfs                          118M     0  118M   0% /sys/fs/cgroup
+/dev/mapper/vg--root-lv--root   10G  3.2G  6.9G  32% /
+tmpfs                           24M     0   24M   0% /run/user/1000
+]0;vagrant@lvm03:~[vagrant@lvm03 ~]$ pvcre[K[K[K[K[Ksudi[Ko su
+]0;root@lvm03:/home/vagrant[?1034h[root@lvm03 vagrant]# pvcreate /dev/sda
+  Device /dev/sda excluded by a filter.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# pvcreate /dev/sda -g[Kf
+  Device /dev/sda excluded by a filter.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# fdik [K[Ksk -h
+Usage:
+ fdisk [options] <disk>    change partition table
+ fdisk [options] -l <disk> list partition table(s)
+ fdisk -s <partition>      give partition size(s) in blocks
+
+Options:
+ -b <size>             sector size (512, 1024, 2048 or 4096)
+ -c[=<mode>]           compatible mode: 'dos' or 'nondos' (default)
+ -h                    print this help text
+ -u[=<unit>]           display units: 'cylinders' or 'sectors' (default)
+ -v                    print program version
+ -C <number>           specify the number of cylinders
+ -H <number>           specify the number of heads
+ -S <number>           specify the number of sectors per track
+
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# fdik[Ksk /dev/sda
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): help
+h: unknown command
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   g   create a new empty GPT partition table
+   G   create an IRIX (SGI) partition table
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Command (m for help): p
+
+Disk /dev/sda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0009ef1a
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1   *        2048    83886079    41942016   83  Linux
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): p
+
+Disk /dev/sda: 42.9 GB, 42949672960 bytes, 83886080 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk label type: dos
+Disk identifier: 0x0009ef1a
+
+   Device Boot      Start         End      Blocks   Id  System
+
+Command (m for help): x
+
+Expert command (m for help): x
+Command action
+   b   move beginning of data in a partition
+   c   change number of cylinders
+   d   print the raw data in the first sector
+   e   list extended partitions
+   f   fix partition order
+   g   create an IRIX (SGI) partition table
+   h   change number of heads
+   i   change the disk identifier
+   m   print this menu
+   p   print the partition table
+   q   quit without saving changes
+   r   return to main menu
+   s   change number of sectors/track
+   v   verify the partition table
+   w   write table to disk and exit
+
+Expert command (m for help): 
+Do you really want to quit? 
+Expert command (m for help): 
+Do you really want to quit? y
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                      8:0    0   40G  0 disk 
+└─sda1                   8:1    0   40G  0 part 
+sdb                      8:16   0   10G  0 disk 
+└─vg--root-lv--root    253:5    0   10G  0 lvm  /
+sdc                      8:32   0    2G  0 disk 
+sdd                      8:48   0    1G  0 disk 
+├─vg00-mirror_rmeta_0  253:0    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_0 253:1    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+sde                      8:64   0    1G  0 disk 
+├─vg00-mirror_rmeta_1  253:2    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_1 253:3    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# fdisk sda[K[K[K[K[K/dev/sda
+bash: fdis/dev/sda: No such file or directory
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# fdis/dev/sda[Ck/dev/sda /dev/sda
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Selected partition 1
+Partition 1 is deleted
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                      8:0    0   40G  0 disk 
+sdb                      8:16   0   10G  0 disk 
+└─vg--root-lv--root    253:5    0   10G  0 lvm  /
+sdc                      8:32   0    2G  0 disk 
+sdd                      8:48   0    1G  0 disk 
+├─vg00-mirror_rmeta_0  253:0    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_0 253:1    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+sde                      8:64   0    1G  0 disk 
+├─vg00-mirror_rmeta_1  253:2    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_1 253:3    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lsblkfdisk /dev/sda[2P/dev/sda[7Plsblkfdisk /dev/sda-h[Kpvcreate /dev/sda -f[K[K[K
+WARNING: dos signature detected on /dev/sda at offset 510. Wipe it? [y/n]: y
+  Wiping dos signature on /dev/sda.
+  Physical volume "/dev/sda" successfully created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# vgcreate VolGroup00 /dev/sda
+  Volume group "VolGroup00" successfully created
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# lvcreate -n VolGroup00/LogVol00 -L 8G /dev/VolGroup00
+WARNING: xfs signature detected on /dev/VolGroup00/LogVol00 at offset 0. Wipe it? [y/n]: y
+  Wiping xfs signature on /dev/VolGroup00/LogVol00.
+  Logical volume "LogVol00" created.
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# 
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mkfs.xfs /dev/VolGroup00/LogVol00 
+meta-data=/dev/VolGroup00/LogVol00 isize=512    agcount=4, agsize=524288 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=2097152, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# mount /dev/VolGroup00/lo[K[KLogVol00 /mnt
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# xfsdump -J - /dev/vg_root/lv_root | xfsrestore -J - /mnt
+xfsdump: using file dump (drive_simple) strategy
+xfsdump: version 3.1.7 (dump format 3.0)
+xfsdump: ERROR: /dev/vg_root/lv_root does not identify a file system
+xfsdump: usage: xfsdump [ -a (dump DMF dualstate files as offline) ]
+                        [ -b <blocksize> ]
+                        [ -c <media change alert program>  ]
+                        [ -d <dump media file size>  ]
+                        [ -e (allow files to be excluded) ]
+                        [ -f <destination> ... ]
+                        [ -h (help) ]
+                        [ -l <level> ]
+                        [ -m (force usage of minimal rmt) ]
+                        [ -o (overwrite tape) ]
+                        [ -p <seconds between progress reports> ]
+                        [ -q <use QIC tape settings> ]
+                        [ -s <subtree> ... ]
+                        [ -t <file> (use file mtime for dump time ]
+                        [ -v <verbosity {silent, verbose, trace}> ]
+                        [ -z <maximum file size> ]
+                        [ -A (don't dump extended file attributes) ]
+                        [ -B <base dump session id> ]
+                        [ -D (skip unchanged directories) ]
+                        [ -E (pre-erase media) ]
+                        [ -F (don't prompt) ]
+                        [ -I (display dump inventory) ]
+                        [ -J (inhibit inventory update) ]
+                        [ -K (generate format 2 dump) ]
+                        [ -L <session label> ]
+                        [ -M <media label> ... ]
+                        [ -O <options file> ]
+                        [ -R (resume) ]
+                        [ -T (don't timeout dialogs) ]
+                        [ -Y <I/O buffer ring length> ]
+                        [ - (stdout) ]
+                        [ <source (mntpnt|device)> ]
+xfsdump: Dump Status: ERROR
+xfsrestore: using file dump (drive_simple) strategy
+xfsrestore: version 3.1.7 (dump format 3.0)
+xfsrestore: searching media for dump
+xfsrestore: restore complete: 0 seconds elapsed
+xfsrestore: Restore Status: SUCCESS
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# xfsdump -J - /dev/vg_root/lv_root | xfsrestore -J - /mnt[1P[1@-[C[C[C[C[C[C[C[C[1P[1@-
+xfsrestore: using file dump (drive_simple) strategy
+xfsrestore: version 3.1.7 (dump format 3.0)
+xfsdump: using file dump (drive_simple) strategy
+xfsdump: version 3.1.7 (dump format 3.0)
+xfsdump: level 0 dump of lvm03:/
+xfsdump: dump date: Wed Feb  9 19:25:33 2022
+xfsdump: session id: c7e4e6c7-e415-4866-9159-d2e0026d75c5
+xfsdump: session label: ""
+xfsrestore: searching media for dump
+xfsdump: ino map phase 1: constructing initial dump list
+xfsdump: ino map phase 2: skipping (no pruning necessary)
+xfsdump: ino map phase 3: skipping (only one dump stream)
+xfsdump: ino map construction complete
+xfsdump: estimated dump size: 3293987648 bytes
+xfsdump: creating dump session media file 0 (media 0, file 0)
+xfsdump: dumping ino map
+xfsdump: dumping directories
+xfsrestore: examining media file 0
+xfsrestore: dump description: 
+xfsrestore: hostname: lvm03
+xfsrestore: mount point: /
+xfsrestore: volume: /dev/mapper/vg--root-lv--root
+xfsrestore: session time: Wed Feb  9 19:25:33 2022
+xfsrestore: level: 0
+xfsrestore: session label: ""
+xfsrestore: media label: ""
+xfsrestore: file system id: 0959d734-ddb8-48ae-a807-ef655f5c8901
+xfsrestore: session id: c7e4e6c7-e415-4866-9159-d2e0026d75c5
+xfsrestore: media id: 5977b675-39dc-4709-b780-6bd24858ebb0
+xfsrestore: searching media for directory dump
+xfsrestore: reading directories
+xfsdump: dumping non-directory files
+xfsrestore: 3024 directories and 32202 entries processed
+xfsrestore: directory post-processing
+xfsrestore: restoring non-directory files
+xfsdump: ending media file
+xfsdump: media file size 3256499448 bytes
+xfsdump: dump size (non-dir files) : 3237788344 bytes
+xfsdump: dump complete: 28 seconds elapsed
+xfsdump: Dump Status: SUCCESS
+xfsrestore: restore complete: 28 seconds elapsed
+xfsrestore: Restore Status: SUCCESS
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# for i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /mnt/$i; done
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# chroot /mnt
+]0;root@lvm03:/[?1034h[root@lvm03 /]# grub2-mkconfig -o /boot/grub2/grub.cfg
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-3.10.0-1127.el7.x86_64
+Found initrd image: /boot/initramfs-3.10.0-1127.el7.x86_64.img
+done
+]0;root@lvm03:/[root@lvm03 /]# cd /boot ; for i in `ls initramfs-*img`; do dracut -v $i `echo $i|sed "s/initramfs-//g;
+> s/.img//g"` --force; done
+Executing: /sbin/dracut -v initramfs-3.10.0-1127.el7.x86_64.img 3.10.0-1127.el7.x86_64 --force
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'plymouth' will not be installed, because command 'plymouthd' could not be found!
+dracut module 'plymouth' will not be installed, because command 'plymouth' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+*** Including module: bash ***
+*** Including module: nss-softokn ***
+*** Including module: i18n ***
+*** Including module: dm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 60-persistent-storage-dm.rules
+Skipping udev rule: 55-dm.rules
+*** Including module: kernel-modules ***
+Omitting driver floppy
+*** Including module: lvm ***
+Skipping udev rule: 64-device-mapper.rules
+Skipping udev rule: 56-lvm.rules
+Skipping udev rule: 60-persistent-storage-lvm.rules
+*** Including module: qemu ***
+*** Including module: rootfs-block ***
+*** Including module: terminfo ***
+*** Including module: udev-rules ***
+Skipping udev rule: 40-redhat-cpu-hotplug.rules
+Skipping udev rule: 91-permissions.rules
+*** Including module: biosdevname ***
+*** Including module: systemd ***
+*** Including module: usrmount ***
+*** Including module: base ***
+*** Including module: fs-lib ***
+*** Including module: shutdown ***
+*** Including modules done ***
+*** Installing kernel module dependencies and firmware ***
+*** Installing kernel module dependencies and firmware done ***
+*** Resolving executable dependencies ***
+*** Resolving executable dependencies done***
+*** Hardlinking files ***
+*** Hardlinking files done ***
+*** Stripping files ***
+*** Stripping files done ***
+*** Generating early-microcode cpio image contents ***
+*** No early-microcode cpio image needed ***
+*** Store current command line parameters ***
+*** Creating image file ***
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-1127.el7.x86_64.img' done ***
+]0;root@lvm03:/boot[root@lvm03 boot]# lsblk
+NAME                   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                      8:0    0   40G  0 disk 
+└─VolGroup00-LogVol00  253:6    0    8G  0 lvm  /
+sdb                      8:16   0   10G  0 disk 
+└─vg--root-lv--root    253:5    0   10G  0 lvm  /boot
+sdc                      8:32   0    2G  0 disk 
+sdd                      8:48   0    1G  0 disk 
+├─vg00-mirror_rmeta_0  253:0    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_0 253:1    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+sde                      8:64   0    1G  0 disk 
+├─vg00-mirror_rmeta_1  253:2    0    4M  0 lvm  
+│ └─vg00-mirror        253:4    0  816M  0 lvm  
+└─vg00-mirror_rimage_1 253:3    0  816M  0 lvm  
+  └─vg00-mirror        253:4    0  816M  0 lvm  
+]0;root@lvm03:/boot[root@lvm03 boot]# vre[K[Kgs
+  VG         #PV #LV #SN Attr   VSize   VFree  
+  VolGroup00   1   1   0 wz--n- <40.00g <32.00g
+  vg-root      1   1   0 wz--n- <10.00g      0 
+  vg00         2   1   0 wz--n-   1.99g 400.00m
+]0;root@lvm03:/boot[root@lvm03 boot]# vgremove vg00
+Do you really want to remove volume group "vg00" containing 1 logical volumes? [y/n]: y
+Do you really want to remove active logical volume vg00/mirror? [y/n]: y
+  Logical volume "mirror" successfully removed
+  Volume group "vg00" successfully removed
+]0;root@lvm03:/boot[root@lvm03 boot]# lk[K[Kvgs
+  VG         #PV #LV #SN Attr   VSize   VFree  
+  VolGroup00   1   1   0 wz--n- <40.00g <32.00g
+  vg-root      1   1   0 wz--n- <10.00g      0 
+]0;root@lvm03:/boot[root@lvm03 boot]# lsblk
+NAME                  MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda                     8:0    0  40G  0 disk 
+└─VolGroup00-LogVol00 253:6    0   8G  0 lvm  /
+sdb                     8:16   0  10G  0 disk 
+└─vg--root-lv--root   253:5    0  10G  0 lvm  /boot
+sdc                     8:32   0   2G  0 disk 
+sdd                     8:48   0   1G  0 disk 
+sde                     8:64   0   1G  0 disk 
+]0;root@lvm03:/boot[root@lvm03 boot]# pvcre[K[K[K[K[Kvgr[Kcreate vg-varr[K /de/[Kv/sd{c,d}
+  Volume group "vg-var" successfully created
+]0;root@lvm03:/boot[root@lvm03 boot]# lvcreate _l[K[K-L [K950M -m1 -n lv-var gv[K[Kvg-var
+  Rounding up size to full physical extent 952.00 MiB
+  Logical volume "lv-var" created.
+]0;root@lvm03:/boot[root@lvm03 boot]# mkfs.ext4 /dev-[K/vg-var/lv-var 
+mke2fs 1.42.9 (28-Dec-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+60928 inodes, 243712 blocks
+12185 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=249561088
+8 block groups
+32768 blocks per group, 32768 fragments per group
+7616 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: 0/8   done                            
+Writing inode tables: 0/8   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/8   done
+
+]0;root@lvm03:/boot[root@lvm03 boot]# cp -aR /var/* /mnt/ [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kmount /dev/vg-var/lv-mar /mnt
+mount: special device /dev/vg-var/lv-mar does not exist
+]0;root@lvm03:/boot[root@lvm03 boot]# mount /dev/vg-var/lv-mar /mnt[1@v[1P[1P[1@v
+]0;root@lvm03:/boot[root@lvm03 boot]# cp -aR /var/* /mnt/ 
+]0;root@lvm03:/boot[root@lvm03 boot]# mkdir /tmp/oldvar && mv /var/* /tmp/oldvar
+]0;root@lvm03:/boot[root@lvm03 boot]# umount /mnt
+]0;root@lvm03:/boot[root@lvm03 boot]# mount /dev/vg-var/lv-var /var
+]0;root@lvm03:/boot[root@lvm03 boot]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0" >> /etc/fstab
+]0;root@lvm03:/boot[root@lvm03 boot]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0" >> /etc/fstab[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+UUID="e3b31dd3-be29-47e8-b14b-0fdb410b66b2" /var ext4 defaults 0 0
+]0;root@lvm03:/boot[root@lvm03 boot]# echo "`blkid | grep var: | awk '{print $2}'` /var ext4 defaults 0 0"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[1P[1P
+]0;root@lvm03:/boot[root@lvm03 boot]# echo blkid | grep var:[1P[1P[1P[1P[1P
+/dev/mapper/vg--var-lv--[01;31m[Kvar:[m[K UUID="e3b31dd3-be29-47e8-b14b-0fdb410b66b2" TYPE="ext4" 
+]0;root@lvm03:/boot[root@lvm03 boot]# reboot
+Running in chroot, ignoring request.
+]0;root@lvm03:/boot[root@lvm03 boot]# exit
+]0;root@lvm03:/home/vagrant[root@lvm03 vagrant]# reboot
+Connection to 127.0.0.1 closed by remote host.
+Connection to 127.0.0.1 closed.
+]0;tesla@ol85:~/homework03[tesla@ol85 homework03]$ vagrant ssh
+]0;tesla@ol85:~/homework03[tesla@ol85 homework03]$ vagrant ssh
+^C]0;tesla@ol85:~/homework03[tesla@ol85 homework03]$ exit
+exit
+
+Script done on 2022-02-09 22:37:31+03:00
